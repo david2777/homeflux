@@ -1,0 +1,16 @@
+appdirs==1.4.4
+certifi==2021.5.30
+colorama==0.4.4
+influxdb-client==1.19.0
+nut2==2.1.1
+pydantic==1.8.2
+pyee==8.1.0
+pyppeteer==0.2.5
+python-dateutil==2.8.2
+pytz==2021.1
+Rx==3.2.0
+six==1.16.0
+tqdm==4.61.2
+typing-extensions==3.10.0.0
+urllib3==1.26.6
+websockets==8.1
