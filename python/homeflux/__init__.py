@@ -1,13 +1,7 @@
 import os
-import logging
 
-logging.basicConfig()
-logging.getLogger('asyncio').setLevel(logging.INFO)
-logging.getLogger('asyncio.coroutines').setLevel(logging.INFO)
-logging.getLogger('websockets').setLevel(logging.INFO)
-logging.getLogger('websockets.server').setLevel(logging.INFO)
-logging.getLogger('websockets.protocol').setLevel(logging.INFO)
-logging.getLogger('websockets.client').setLevel(logging.INFO)
+import logzero
 
-if os.getenv('HOMEFLUX_DEBUG', False):
-    logging.getLogger('homeflux').setLevel(10)
+_level = 10 if os.getenv('HOMEFLUX_DEBUG', False) else 20
+log = logzero.setup_logger('homeflux', level=_level)
+

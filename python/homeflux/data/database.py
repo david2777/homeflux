@@ -1,14 +1,11 @@
 """Module for interacting with the InfluxDB database"""
-import logging
 from typing import List
 
 from influxdb_client import InfluxDBClient
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-from homeflux import environment
+from homeflux import environment, log
 from homeflux.data import data_types
-
-log = logging.getLogger(__name__)
 
 
 def write(values: List[data_types.AbstractRecord]) -> None:

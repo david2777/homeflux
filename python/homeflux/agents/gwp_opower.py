@@ -1,6 +1,5 @@
 """Module for interacting with Glendale Water and Power gwp.opower.com JSON API"""
 import json
-import logging
 import asyncio
 import datetime
 from typing import Union, Optional, List
@@ -8,10 +7,8 @@ from typing import Union, Optional, List
 from pyppeteer import launcher
 from pyppeteer.page import Page
 
-from homeflux import urls, environment
+from homeflux import urls, environment, log
 from homeflux.data.data_types import PowerRecord, ClimateRecord
-
-log = logging.getLogger(__name__)
 
 
 class MeterError(Exception):
@@ -93,6 +90,7 @@ class Meter(object):
         """Login to homeflux.opower.com and store the pyppeteer browser instance as self.browser.
 
         """
+        log.info('Logging into GWP OPower')
         # Logout of the browser if it already exists
         if self.browser:
             log.debug('Already logged in, logging out...')
@@ -101,8 +99,7 @@ class Meter(object):
         browser_launch_config = {
             "defaultViewport": {"width": 1920, "height": 1080},
             "dumpio": False,
-            "args": ["--no-sandbox"],
-            "logLevel": 20}
+            "args": ["--no-sandbox"]}
         log.debug("browser_launch_config = %s", browser_launch_config)
         self.browser = await launcher.launch(browser_launch_config)
 
@@ -129,7 +126,7 @@ class Meter(object):
         """
         if not self.browser:
             log.info('No browser to close')
-        log.debug('Closing Browser')
+        log.info('Closing GWP OPower Browser')
         await self.browser.close()
         self.browser = None
 

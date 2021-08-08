@@ -1,14 +1,11 @@
 """Homeflux Data Types"""
 import abc
-import logging
 import datetime
 from typing import Optional
 
 from pydantic import BaseModel
 
-from homeflux import environment
-
-log = logging.getLogger(__name__)
+from homeflux import environment, log
 
 
 class AbstractRecord(BaseModel, metaclass=abc.ABCMeta):

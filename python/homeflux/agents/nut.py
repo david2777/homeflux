@@ -1,14 +1,12 @@
 """Module for interacting with NUT (Network UPS Tools)"""
-import logging
 import datetime
 from typing import Union, Optional
 
+import nut2
 from nut2 import PyNUTClient
 
-from homeflux import environment
+from homeflux import environment, log
 from homeflux.data.data_types import PowerRecord
-
-log = logging.getLogger(__name__)
 
 
 class NutError(RuntimeError):
@@ -22,7 +20,7 @@ class NutClient(object):
     host_name: str
     ip_address: str
     timescale: str
-    port: int = environment.NUT_PORT
+    port: int
     nut_client: Union[PyNUTClient, None] = None
 
     def __init__(self, host_name: str, ip_address: str, timescale: str, port: int = None):
@@ -37,7 +35,7 @@ class NutClient(object):
         self.host_name = host_name
         self.ip_address = ip_address
         self.timescale = timescale
-        self.port = port
+        self.port = port if port is not None else environment.NUT_PORT
 
     def __repr__(self):
         return f'[{self.__class__.__name__} {self.host_name} {self.ip_address}@{self.port}]'
@@ -52,9 +50,12 @@ class NutClient(object):
         """Connect to the NUT client and instantiate the self.nut_client instance.
 
         """
-        log.debug('Connecting to NUT Server')
-        self.nut_client = PyNUTClient(host=self.ip_address, port=self.port, login=environment.NUT_USERNAME,
-                                      password=environment.NUT_PASSWORD, debug=environment.DEBUG)
+        try:
+            log.info('Connecting to NUT Server %s@%s', self.ip_address, self.port)
+            self.nut_client = PyNUTClient(host=self.ip_address, port=self.port, login=environment.NUT_USERNAME,
+                                          password=environment.NUT_PASSWORD, debug=False)
+        except nut2.PyNUTError:
+            raise NutError(f'Failed to connect to {self.ip_address}')
 
     async def disconnect(self):
         """Disconnect from the NUT client by deleting the self.nut_client instance.

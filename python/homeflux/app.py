@@ -1,13 +1,10 @@
 """Main Point of Entry"""
 import time
 import asyncio
-import logging
 
-from homeflux import environment
+from homeflux import environment, log
 from homeflux.utils.timer import Timer
 from homeflux.agents import gwp_opower, nut
-
-log = logging.getLogger('homeflux.app')
 
 
 async def nut_main():
@@ -22,23 +19,34 @@ async def nut_main():
             port = int(port)
         agents.append(nut.NutClient(host_name, ip_address, 'second', port=port))
 
+    reads = []
+
     for a in agents:
         t1 = Timer()
-        async with a:
-            await a.read()
-        log.debug('Took %s to read from %s', t1.end(), a)
+        try:
+            async with a:
+                read = await a.read()
+                if read:
+                    reads.append(read)
+        except nut.NutError:
+            log.exception('Could not connect to %s', a.ip_address)
+        else:
+            log.debug('Took %s to read from %s', t1.end(), a)
 
-    log.debug('Took %s to read %s records from NUT', t.end(), len(agents))
+    log.info('Took %s seconds to read %s records from NUT', t.end(), len(reads))
 
 
 async def gwp_main():
     t = Timer()
     m = gwp_opower.Meter(environment.GWP_USER, environment.GWP_PASSWORD, environment.GWP_UUID)
-    async with m:
-        power = await m.get_power_hourly()
-        weather = await m.get_weather_hourly()
-
-    log.debug('Took %s to read %s records from GWP', t.end(), len(power) + len(weather))
+    try:
+        async with m:
+            power = await m.get_power_hourly()
+            weather = await m.get_weather_hourly()
+    except gwp_opower.MeterError:
+        log.exception('Could not connect to GWP Meter')
+    else:
+        log.info('Took %s seconds to read %s records from GWP OPower', t.end(), len(power) + len(weather))
 
 
 async def run_forever(coroutine, interval):
@@ -50,7 +58,7 @@ async def run_forever(coroutine, interval):
 
 async def main():
     await asyncio.gather(run_forever(nut_main, 30),  # Run NUT loop every 30 seconds
-                         run_forever(gwp_main, 21600))  # Run GWP loop every 6 hours=
+                         run_forever(gwp_main, 21600))  # Run GWP loop every 6 hours
 
 
 if __name__ == '__main__':
