@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Container version="2">
+    <Name>Homeflux</Name>
+    <Overview>HomeFlux Container</Overview>
+    <Registry>TODO</Registry>
+    <Repository>TODO</Repository>
+    <Privileged>false</Privileged>
+    <Icon>TODO</Icon>
+    <Category>HomeAutomation</Category>
+    <Config
+       Type="Variable"
+       Name="Debug"
+       Target="DEBUG"
+       Default=""
+       Description="Enable Debug Mode"
+       Mask="false"
+       Display="advanced"
+       Required="false">
+        Debug</Config>
+
+    <Config
+       Type="Variable"
+       Name="Influx Token"
+       Target="INFLUX_TOKEN"
+       Default=""
+       Description="InfluxDB v2 API Token"
+       Mask="true"
+       Display="always"
+       Required="true">
+        Influx Token</Config>
+    <Config
+       Type="Variable"
+       Name="Influx URL"
+       Target="INFLUX_URL"
+       Default=""
+       Description="InfluxDB v2 API URL"
+       Mask="false"
+       Display="always"
+       Required="true">
+        Influx URL</Config>
+    <Config
+       Type="Variable"
+       Name="Influx Organization"
+       Target="INFLUX_ORG"
+       Default=""
+       Description="InfluxDB Organization"
+       Mask="false"
+       Display="always"
+       Required="true">
+        Influx Organization</Config>
+
+    <Config
+       Type="Variable"
+       Name="GWP Username"
+       Target="GWP_USER"
+       Default=""
+       Description="GWP Username"
+       Mask="false"
+       Display="always"
+       Required="true">
+        GWP Username</Config>
+    <Config
+       Type="Variable"
+       Name="GWP Password"
+       Target="GWP_PASSWORD"
+       Default=""
+       Description="GWP Password"
+       Mask="true"
+       Display="always"
+       Required="true">
+        GWP Password</Config>
+    <Config
+       Type="Variable"
+       Name="GWP Meter UUID"
+       Target="GWP_UUID"
+       Default=""
+       Description="GWP Meter UUID"
+       Mask="true"
+       Display="always"
+       Required="true">
+        GWP Meter UUID</Config>
+
+    <Config
+       Type="Variable"
+       Name="NUT Username"
+       Target="NUT_USERNAME"
+       Default="monuser"
+       Description="NUT Username"
+       Mask="false"
+       Display="always"
+       Required="true">
+        NUT Username</Config>
+    <Config
+       Type="Variable"
+       Name="NUT Password"
+       Target="NUT_PASSWORD"
+       Default=""
+       Description="NUT Password"
+       Mask="true"
+       Display="always"
+       Required="true">
+        NUT Password</Config>
+    <Config
+       Type="Variable"
+       Name="NUT Port"
+       Target="NUT_PORT"
+       Default="3493"
+       Description="NUT Port"
+       Mask="false"
+       Display="always"
+       Required="true">
+        NUT Port</Config>
+    <Config
+       Type="Variable"
+       Name="NUT UPS Name"
+       Target="NUT_UPS_NAME"
+       Default="ups"
+       Description="NUT UPS Name"
+       Mask="false"
+       Display="always"
+       Required="true">
+        NUT UPS Name</Config>
+    <Config
+       Type="Variable"
+       Name="NUT Hosts"
+       Target="NUT_HOSTS"
+       Default="{}"
+       Description="NUT Hosts as a Python dict, eg: {'name':'ip_address'}"
+       Mask="false"
+       Display="always"
+       Required="true">
+        NUT Hosts</Config>
+
+</Container>
