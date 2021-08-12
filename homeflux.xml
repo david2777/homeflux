@@ -2,10 +2,10 @@
 <Container version="2">
     <Name>Homeflux</Name>
     <Overview>HomeFlux Container</Overview>
-    <Registry>TODO</Registry>
-    <Repository>TODO</Repository>
+    <Registry>>https://ghcr.io/david2777/homeflux</Registry>
+    <Repository>david2777/homeflux</Repository>
     <Privileged>false</Privileged>
-    <Icon>TODO</Icon>
+<!--    <Icon></Icon>-->
     <Category>HomeAutomation</Category>
     <Config
        Type="Variable"
