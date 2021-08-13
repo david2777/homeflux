@@ -6,7 +6,8 @@
     <Repository>david2777/homeflux</Repository>
     <GitHub>https://github.com/david2777/homeflux</GitHub>
     <Privileged>false</Privileged>
-    <Category>HomeAutomation</Category>
+    <Category>HomeAutomation:</Category>
+    <Network Default="host">host</Network>
     <Config Type="Variable" Name="Debug" Target="DEBUG" Default="" Description="Enable Debug Mode" Mask="false" Display="advanced" Required="false">Debug</Config>
     <Config Type="Variable" Name="Influx Token" Target="INFLUX_TOKEN" Default="" Description="InfluxDB v2 API Token" Mask="true" Display="always" Required="true">Influx Token</Config>
     <Config Type="Variable" Name="Influx URL" Target="INFLUX_URL" Default="" Description="InfluxDB v2 API URL" Mask="false" Display="always" Required="true">Influx URL</Config>
