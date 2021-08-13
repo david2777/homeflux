@@ -2,8 +2,9 @@
 <Container version="2">
     <Name>Homeflux</Name>
     <Overview>HomeFlux Container</Overview>
-    <Registry>>https://ghcr.io/david2777/homeflux</Registry>
+    <Registry>>https://registry.hub.docker.com/u/david2777/homeflux/</Registry>
     <Repository>david2777/homeflux</Repository>
+    <GitHub>https://github.com/david2777/homeflux</GitHub>
     <Privileged>false</Privileged>
     <Category>HomeAutomation</Category>
     <Config Type="Variable" Name="Debug" Target="DEBUG" Default="" Description="Enable Debug Mode" Mask="false" Display="advanced" Required="false">Debug</Config>
