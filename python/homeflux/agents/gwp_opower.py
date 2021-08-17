@@ -100,6 +100,8 @@ class Meter(object):
             "defaultViewport": {"width": 1920, "height": 1080},
             "dumpio": False,
             "args": ["--no-sandbox"]}
+        if environment.DOCKER:
+            browser_launch_config['executablePath'] = '/usr/bin/google-chrome-stable'
         log.debug("browser_launch_config = %s", browser_launch_config)
         self.browser = await launcher.launch(browser_launch_config)
 

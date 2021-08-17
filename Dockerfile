@@ -2,6 +2,8 @@ FROM ubuntu:20.04
 
 MAINTAINER David DuVoisin "daduvo11@gmail.com"
 
+ENV HOMEFLUX_DOCKER 'True'
+
 RUN mkdir /app
 
 WORKDIR /app
