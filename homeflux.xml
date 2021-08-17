@@ -1,24 +1,110 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <Container version="2">
-    <Name>Homeflux</Name>
-    <Overview>HomeFlux Container</Overview>
-    <Registry>>https://registry.hub.docker.com/u/david2777/homeflux/</Registry>
-    <Repository>david2777/homeflux</Repository>
-    <GitHub>https://github.com/david2777/homeflux</GitHub>
-    <Privileged>false</Privileged>
-    <Category>HomeAutomation:</Category>
-    <Network Default="host">host</Network>
-    <Config Type="Variable" Name="Debug" Target="DEBUG" Default="" Description="Enable Debug Mode" Mask="false" Display="advanced" Required="false">Debug</Config>
-    <Config Type="Variable" Name="Dry Run" Target="HOMEFLUX_DRY_RUN" Default="" Description="Enable Dry Run Mode" Mask="false" Display="advanced" Required="false">Debug</Config>
-    <Config Type="Variable" Name="Influx Token" Target="INFLUX_TOKEN" Default="" Description="InfluxDB v2 API Token" Mask="true" Display="always" Required="true">Influx Token</Config>
-    <Config Type="Variable" Name="Influx URL" Target="INFLUX_URL" Default="" Description="InfluxDB v2 API URL" Mask="false" Display="always" Required="true">Influx URL</Config>
-    <Config Type="Variable" Name="Influx Organization" Target="INFLUX_ORG" Default="" Description="InfluxDB Organization" Mask="false" Display="always" Required="true">Influx Organization</Config>
-    <Config Type="Variable" Name="GWP Username" Target="GWP_USER" Default="" Description="GWP Username" Mask="false" Display="always" Required="true">GWP Username</Config>
-    <Config Type="Variable" Name="GWP Password" Target="GWP_PASSWORD" Default="" Description="GWP Password" Mask="true" Display="always" Required="true">GWP Password</Config>
-    <Config Type="Variable" Name="GWP Meter UUID" Target="GWP_UUID" Default="" Description="GWP Meter UUID" Mask="true" Display="always" Required="true">GWP Meter UUID</Config>
-    <Config Type="Variable" Name="NUT Username" Target="NUT_USERNAME" Default="monuser" Description="NUT Username" Mask="false" Display="always" Required="true">NUT Username</Config>
-    <Config Type="Variable" Name="NUT Password" Target="NUT_PASSWORD" Default="" Description="NUT Password" Mask="true" Display="always" Required="true">NUT Password</Config>
-    <Config Type="Variable" Name="NUT Port" Target="NUT_PORT" Default="3493" Description="NUT Port" Mask="false" Display="always" Required="true">NUT Port</Config>
-    <Config Type="Variable" Name="NUT UPS Name" Target="NUT_UPS_NAME" Default="ups" Description="NUT UPS Name" Mask="false" Display="always" Required="true">NUT UPS Name</Config>
-    <Config Type="Variable" Name="NUT Hosts" Target="NUT_HOSTS" Default="{}" Description="NUT Hosts as a Python dict, eg: {'name':'ip_address'}" Mask="false" Display="always" Required="true">NUT Hosts</Config>
+  <Name>Homeflux</Name>
+  <Repository>david2777/homeflux</Repository>
+  <Registry>https://registry.hub.docker.com/u/david2777/homeflux/</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support/>
+  <Project>https://github.com/david2777/homeflux</Project>
+  <Overview>Homeflux Production Instance</Overview>
+  <Category>HomeAutomation:</Category>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon/>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1629174903</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Description>Homeflux Production Instance</Description>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish/>
+  </Networking>
+  <Data/>
+  <Environment>
+    <Variable>
+      <Value/>
+      <Name>DEBUG</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>HOMEFLUX_DRY_RUN</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>INFLUX_TOKEN</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>INFLUX_URL</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>INFLUX_ORG</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>GWP_USER</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>GWP_PASSWORD</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>GWP_UUID</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>NUT_USERNAME</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>NUT_PASSWORD</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>NUT_PORT</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>NUT_UPS_NAME</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>NUT_HOSTS</Name>
+      <Mode/>
+    </Variable>
+  </Environment>
+  <Labels/>
+  <Config Name="Debug" Target="DEBUG" Default="" Mode="" Description="Enable debug mode" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="Dry Run" Target="HOMEFLUX_DRY_RUN" Default="" Mode="" Description="Enable Dry Run Mode" Type="Variable" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="InfluxDB Token" Target="INFLUX_TOKEN" Default="" Mode="" Description="InfluxDB v2 API Token" Type="Variable" Display="always" Required="true" Mask="true"/>
+  <Config Name="InfluxDB URL" Target="INFLUX_URL" Default="" Mode="" Description="InfluxDB v2 API URL" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="InfluxDB Organization" Target="INFLUX_ORG" Default="" Mode="" Description="InfluxDB Organization" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="GWP Username" Target="GWP_USER" Default="" Mode="" Description="GWP Username" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="GWP Password" Target="GWP_PASSWORD" Default="" Mode="" Description="GWP Password" Type="Variable" Display="always" Required="true" Mask="true"/>
+  <Config Name="GWP Meter UUID" Target="GWP_UUID" Default="" Mode="" Description="GWP Meter UUID" Type="Variable" Display="always" Required="true" Mask="true"/>
+  <Config Name="NUT Username" Target="NUT_USERNAME" Default="" Mode="" Description="NUT Username" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="NUT Password" Target="NUT_PASSWORD" Default="" Mode="" Description="NUT Password" Type="Variable" Display="always" Required="true" Mask="true"/>
+  <Config Name="NUT Port" Target="NUT_PORT" Default="3493" Mode="" Description="NUT Port" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="NUT UPS Name" Target="NUT_UPS_NAME" Default="ups" Mode="" Description="NUT UPS Name" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="NUT Hosts" Target="NUT_HOSTS" Default="{}" Mode="" Description="NUT Hosts as a Python dict, eg: {'name':'ip_address'}" Type="Variable" Display="always" Required="true" Mask="false"/>
 </Container>
