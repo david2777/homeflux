@@ -4,6 +4,7 @@ import asyncio
 
 from homeflux import environment, log
 from homeflux.utils.timer import Timer
+from homeflux.data import database as db
 from homeflux.agents import gwp_opower, nut
 
 
@@ -38,6 +39,9 @@ async def nut_main():
 
     log.info('Took %s seconds to read %s records from NUT', t.end(), len(reads))
 
+    if not environment.DRY_RUN:
+        db.write(values=reads)
+
 
 async def gwp_main():
     """Main GWP gather loop, designed to run forever on an interval.
@@ -53,6 +57,10 @@ async def gwp_main():
         log.exception('Could not connect to GWP Meter')
     else:
         log.info('Took %s seconds to read %s records from GWP OPower', t.end(), len(power) + len(weather))
+
+    if not environment.DRY_RUN:
+        db.write(values=power)
+        db.write(values=weather)
 
 
 async def run_forever(coroutine, interval: int):
