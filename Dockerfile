@@ -14,10 +14,10 @@ RUN apt-get install curl --assume-yes
 
 RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py
 
-RUN python3 get-pip.py
+RUN python get-pip.py
 
-RUN python3 -m pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install --no-cache-dir -r requirements.txt
 
 ENV PYTHONPATH "${PYTHONPATH}:/app/python"
 
-CMD ["python3.9", "-m", "homeflux.app"]
+CMD ["python", "-m", "homeflux.app"]
