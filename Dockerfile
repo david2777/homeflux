@@ -8,13 +8,13 @@ WORKDIR /app
 
 COPY . /app/
 
-RUN sudo apt update
+RUN apt update
 
-RUN sudo apt sudo apt install software-properties-common
+RUN apt apt install software-properties-common
 
-RUN sudo add-apt-repository ppa:deadsnakes/ppa
+RUN add-apt-repository ppa:deadsnakes/ppa
 
-RUN sudo apt install python3.9
+RUN apt install python3.9
 
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 
