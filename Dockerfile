@@ -8,16 +8,12 @@ WORKDIR /app
 
 COPY . /app/
 
-RUN apt-get update
+RUN apt-get update -y
 
-RUN apt-get install curl --assume-yes
+RUN apt-get install python3 python3-pip -y
 
-RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py
-
-RUN python get-pip.py
-
-RUN python -m pip install --no-cache-dir -r requirements.txt
+RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
 ENV PYTHONPATH "${PYTHONPATH}:/app/python"
 
-CMD ["python", "-m", "homeflux.app"]
+CMD python3 -m homeflux.app
