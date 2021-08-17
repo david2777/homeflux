@@ -8,7 +8,13 @@ WORKDIR /app
 
 COPY . /app/
 
-RUN apt-get install python3-pip
+RUN apt-get update
+
+RUN apt-get install curl
+
+RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py
+
+RUN python3 get-pip.py
 
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
