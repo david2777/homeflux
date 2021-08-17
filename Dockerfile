@@ -22,6 +22,9 @@ RUN apt-get install -y python3 python3-pip wget gnupg \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
+RUN groupadd chrome && useradd -g chrome -s /bin/bash -G audio,video chrome \
+    && mkdir -p /home/chrome && chown -R chrome:chrome /home/chrome
+
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
 ENV PYTHONPATH "${PYTHONPATH}:/app/python"
