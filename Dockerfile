@@ -10,7 +10,7 @@ COPY . /app/
 
 RUN apt-get update
 
-RUN apt-get install curl
+RUN apt-get install curl --assume-yes
 
 RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py
 
