@@ -3,6 +3,7 @@ import os
 import ast
 
 DEBUG = bool(os.getenv('HOMEFLUX_DEBUG', False))
+DRY_RUN = bool(os.getenv('HOMEFLUX_DRY_RUN', False))
 TEST = bool(os.getenv('UNIT_TEST', False))
 
 INFLUX_TOKEN = os.getenv("INFLUX_TOKEN")
