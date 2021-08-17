@@ -8,7 +8,7 @@ WORKDIR /app
 
 COPY . /app/
 
-RUN export DEBIAN_FRONTEND=noninteractive
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata
 
 RUN apt-get update -y \
     && apt-get install -y python3 python3-pip wget gnupg \
