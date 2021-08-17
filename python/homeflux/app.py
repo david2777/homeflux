@@ -8,6 +8,9 @@ from homeflux.agents import gwp_opower, nut
 
 
 async def nut_main():
+    """Main NUT gather loop, designed to run forever on an interval.
+
+    """
     t = Timer()
 
     hosts = environment.NUT_HOSTS
@@ -37,6 +40,9 @@ async def nut_main():
 
 
 async def gwp_main():
+    """Main GWP gather loop, designed to run forever on an interval.
+
+    """
     t = Timer()
     m = gwp_opower.Meter(environment.GWP_USER, environment.GWP_PASSWORD, environment.GWP_UUID)
     try:
@@ -49,7 +55,14 @@ async def gwp_main():
         log.info('Took %s seconds to read %s records from GWP OPower', t.end(), len(power) + len(weather))
 
 
-async def run_forever(coroutine, interval):
+async def run_forever(coroutine, interval: int):
+    """Routine to run a function coroutine on an interval forever.
+
+    Args:
+        coroutine: The coroutine to run.
+        interval (int): Interval to run on.
+
+    """
     while True:
         start = time.time()
         await coroutine()
@@ -57,6 +70,9 @@ async def run_forever(coroutine, interval):
 
 
 async def main():
+    """Main function, run all of the agents on the specified intervals.
+
+    """
     await asyncio.gather(run_forever(nut_main, 30),  # Run NUT loop every 30 seconds
                          run_forever(gwp_main, 21600))  # Run GWP loop every 6 hours
 
