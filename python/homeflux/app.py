@@ -21,7 +21,7 @@ async def nut_main():
         if '@' in ip_address:
             ip_address, port = ip_address.split('@')
             port = int(port)
-        agents.append(nut.NutClient(host_name, ip_address, 'second', port=port))
+        agents.append(nut.NutClient(host_name, ip_address, 'minute', port=port))
 
     reads = []
 
@@ -81,7 +81,7 @@ async def main():
     """Main function, run all of the agents on the specified intervals.
 
     """
-    await asyncio.gather(run_forever(nut_main, 30),  # Run NUT loop every 30 seconds
+    await asyncio.gather(run_forever(nut_main, 60),  # Run NUT loop every 60 seconds
                          run_forever(gwp_main, 21600))  # Run GWP loop every 6 hours
 
 
