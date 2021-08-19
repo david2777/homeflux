@@ -54,8 +54,8 @@ class Meter(object):
             file_name = page.url.split('?')[0].split('.com/')[-1].replace('/', '.')
             try:
                 await page.screenshot(path=f'{file_name}.png')
-            except FileNotFoundError:
-                log.error('Failed to write screenshot')
+            except (FileNotFoundError, PermissionError, IOError, OSError):
+                log.warning('Failed to write screenshot')
 
     async def get_raw_json_data(self, url: str) -> dict:
         """Return JSON data from a given URL.
