@@ -50,12 +50,13 @@ class Meter(object):
             page (Page): Page to screenshot.
             force (Optional[bool]): Optionally set to True to force a screenshot.
         """
-        if environment.DEBUG or force:
-            file_name = page.url.split('?')[0].split('.com/')[-1].replace('/', '.')
-            try:
-                await page.screenshot(path=f'{file_name}.png')
-            except (FileNotFoundError, PermissionError, IOError, OSError):
-                log.warning('Failed to write screenshot')
+        pass
+        # if environment.DEBUG or force:
+        #     file_name = page.url.split('?')[0].split('.com/')[-1].replace('/', '.')
+        #     try:
+        #         await page.screenshot(path=f'{file_name}.png')
+        #     except (FileNotFoundError, PermissionError, IOError, OSError):
+        #         log.warning('Failed to write screenshot')
 
     async def get_raw_json_data(self, url: str) -> dict:
         """Return JSON data from a given URL.
@@ -104,8 +105,10 @@ class Meter(object):
             browser_launch_config['executablePath'] = '/usr/bin/google-chrome-stable'
         log.debug("browser_launch_config = %s", browser_launch_config)
         self.browser = await launcher.launch(browser_launch_config)
+        log.debug('Launched browser at %s', repr(self.browser))
 
         # Navigate to login page
+        log.debug('Opening a new page in browser')
         page = await self.browser.newPage()
         log.debug('Connecting to %s', urls.LOGIN)
         navigation_promise = asyncio.ensure_future(page.waitForNavigation())
