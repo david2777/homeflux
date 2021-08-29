@@ -55,9 +55,13 @@ async def seed_opower_historical():
         while abs(start) < delta:
             log.info('Pulling historical data %s => %s', current_date - datetime.timedelta(abs(start)),
                      current_date - datetime.timedelta(abs(end)))
-            power = await meter.get_power_hourly(start, end)
-            weather = await meter.get_weather_hourly(start, end)
-            db.write(values=power)
-            db.write(values=weather)
+            power_hourly = await meter.get_power_hourly(start, end)
+            weather_hourly = await meter.get_weather_hourly(start, end)
+            power_daily = await meter.get_power_daily(start, end)
+            weather_daily = await meter.get_weather_daily(start, end)
+            db.write(values=power_hourly)
+            db.write(values=weather_hourly)
+            db.write(values=power_daily)
+            db.write(values=weather_daily)
             start -= 30
             end -= 30

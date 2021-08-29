@@ -51,16 +51,21 @@ async def gwp_main():
     m = gwp_opower.Meter(environment.GWP_USER, environment.GWP_PASSWORD, environment.GWP_UUID)
     try:
         async with m:
-            power = await m.get_power_hourly()
-            weather = await m.get_weather_hourly()
+            power_hourly = await m.get_power_hourly()
+            weather_hourly = await m.get_weather_hourly()
+            power_daily = await m.get_power_daily()
+            weather_daily = await m.get_weather_daily()
     except gwp_opower.MeterError:
         log.exception('Could not connect to GWP Meter')
     else:
-        log.info('Took %s seconds to read %s records from GWP OPower', t.end(), len(power) + len(weather))
+        log.info('Took %s seconds to read %s records from GWP OPower', t.end(),
+                 len(power_hourly) + len(weather_hourly) + len(power_daily) + len(weather_daily))
 
     if not environment.DRY_RUN:
-        db.write(values=power)
-        db.write(values=weather)
+        db.write(values=power_hourly)
+        db.write(values=weather_hourly)
+        db.write(values=power_daily)
+        db.write(values=weather_daily)
 
 
 async def run_forever(coroutine, interval: int):
@@ -86,4 +91,6 @@ async def main():
 
 
 if __name__ == '__main__':
+    # from homeflux.utils import db_utils
+    # db_utils.generate_buckets(True)
     asyncio.run(main())
