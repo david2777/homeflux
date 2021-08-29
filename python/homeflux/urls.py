@@ -1,5 +1,5 @@
 """URL Constants"""
-LOGIN = "https://gwp.opower.com/ei/x/sign-in-wall"
+LOGIN = "https://gwp.opower.com/ei/edge/apis/user-account-control-v1/cws/v1/gwp/account/signin"
 
 METER_HOURLY = 'https://gwp.opower.com/ei/edge/apis/DataBrowser-v1/cws/utilities/gwp/utilityAccounts/' \
                '{account_uuid}/reads?startDate={start_date}&endDate={end_date}&aggregateType=hour'
