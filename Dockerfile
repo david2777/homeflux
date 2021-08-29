@@ -1,8 +1,6 @@
-FROM ubuntu:20.04
+FROM python:3.9
 
 MAINTAINER David DuVoisin "daduvo11@gmail.com"
-
-ENV HOMEFLUX_DOCKER 'True'
 
 RUN mkdir /app
 
@@ -10,25 +8,8 @@ WORKDIR /app
 
 COPY . /app/
 
-RUN apt-get update -y
-
-RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata
-
-RUN apt-get install -y python3 python3-pip wget gnupg \
-    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-    && apt-get update \
-    && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
-      --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN python3 -m pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 ENV PYTHONPATH "${PYTHONPATH}:/app/python"
 
-RUN groupadd chrome && useradd -g chrome -s /bin/bash -G audio,video chrome \
-    && mkdir -p /home/chrome && chown -R chrome:chrome /home/chrome
-
-USER chrome
-
-CMD python3 -m homeflux.app
+CMD ["python", "-m", "homeflux.app"]
