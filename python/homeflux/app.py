@@ -1,6 +1,7 @@
 """Main Point of Entry"""
-import time
 import asyncio
+
+import aiocron
 
 from homeflux import environment, log
 from homeflux.utils.timer import Timer
@@ -8,6 +9,7 @@ from homeflux.data import database as db
 from homeflux.agents import gwp_opower, nut
 
 
+@aiocron.crontab('*/1 * * * *')  # Run every minute
 async def nut_main():
     """Main NUT gather loop, designed to run forever on an interval.
 
@@ -43,6 +45,7 @@ async def nut_main():
         db.write(values=reads)
 
 
+@aiocron.crontab('* */8 * * *')  # Run every 8 hours (aka 3x per day) just in case
 async def gwp_main():
     """Main GWP gather loop, designed to run forever on an interval.
 
@@ -68,29 +71,14 @@ async def gwp_main():
         db.write(values=weather_daily)
 
 
-async def run_forever(coroutine, interval: int):
-    """Routine to run a function coroutine on an interval forever.
-
-    Args:
-        coroutine: The coroutine to run.
-        interval (int): Interval to run on.
-
-    """
-    while True:
-        start = time.time()
-        await coroutine()
-        await asyncio.sleep(interval - (time.time() - start))
+def run_once():
+    asyncio.run(gwp_main.func())
+    asyncio.run(nut_main.func())
 
 
-async def main():
-    """Main function, run all of the agents on the specified intervals.
-
-    """
-    await asyncio.gather(run_forever(nut_main, 60),  # Run NUT loop every 60 seconds
-                         run_forever(gwp_main, 21600))  # Run GWP loop every 6 hours
+def main():
+    asyncio.get_event_loop().run_forever()
 
 
 if __name__ == '__main__':
-    # from homeflux.utils import db_utils
-    # db_utils.generate_buckets(True)
-    asyncio.run(main())
+    main()
