@@ -87,7 +87,7 @@ class NutClient(object):
                 log.debug('Load is %s', load)
                 value = round(float(raw_data['ups.realpower.nominal']) * 0.01 * load, 1)
                 log.debug('Power usage is %s', value)
-            dt = datetime.datetime.now().replace(microsecond=0)
+            dt = datetime.datetime.utcnow().replace(microsecond=0)
             r = PowerRecord(timescale=self.timescale, time=dt, raw_value=value, unit='WH', source='homeflux.nut',
                             location=self.host_name, tags={'ip_address': self.ip_address})
             log.debug(repr(r))
