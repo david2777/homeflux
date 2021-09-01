@@ -45,7 +45,7 @@ async def nut_main():
         db.write(values=reads)
 
 
-@aiocron.crontab('* */8 * * *')  # Run every 8 hours (aka 3x per day) just in case
+@aiocron.crontab('0 */8 * * *')  # Run every 8 hours (aka 3x per day) just in case
 async def gwp_main():
     """Main GWP gather loop, designed to run forever on an interval.
 
