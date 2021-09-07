@@ -197,8 +197,8 @@ class Meter(object):
         if not data:
             return []
         for read in data['reads']:
-            obj = ClimateRecord(time=read['date'], raw_value=read['meanTemperature'], timescale='day',
-                                location='gwp_meter', source='homeflux.gwp_opower')
+            obj = ClimateRecord(time=read['date'].replace('.000Z', urls.UTC_OFFSET), raw_value=read['meanTemperature'],
+                                timescale='day', location='gwp_meter', source='homeflux.gwp_opower')
             log.debug(repr(obj))
             result.append(obj)
 

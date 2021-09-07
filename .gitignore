@@ -1,5 +1,6 @@
 # Secrets text files
 secrets.*
+example_data/
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,pycharm
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,pycharm
