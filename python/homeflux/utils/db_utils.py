@@ -43,16 +43,17 @@ async def seed_opower_historical():
     Returns:
         None
     """
-    online_date = datetime.date(2019, 5, 2)
+    start_date = datetime.date(2020, 1, 7)
+    end_date = datetime.date(2019, 5, 2)
     current_date = datetime.date.today()
-    delta = int((current_date - online_date).days)
+    limit = int((current_date - end_date).days)
 
     meter = gwp_opower.Meter(environment.GWP_USER, environment.GWP_PASSWORD, environment.GWP_UUID)
 
-    start = -31
-    end = -1
+    end = -(current_date - start_date).days
+    start = end - 30
     async with meter:
-        while abs(start) < delta:
+        while abs(start) < limit:
             log.info('Pulling historical data %s => %s', current_date - datetime.timedelta(abs(start)),
                      current_date - datetime.timedelta(abs(end)))
             power_hourly = await meter.get_power_hourly(start, end)
