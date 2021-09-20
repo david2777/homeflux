@@ -33,6 +33,7 @@ class Meter:
         self.email = email
         self.password = password
         self.account_uuid = account_uuid
+        self.session = None
 
     async def __aenter__(self):
         await self.login()
