@@ -54,10 +54,10 @@ async def gwp_main():
     m = gwp_opower.Meter(environment.GWP_USER, environment.GWP_PASSWORD, environment.GWP_UUID)
     try:
         async with m:
-            power_hourly = await m.get_power_hourly()
-            weather_hourly = await m.get_weather_hourly()
-            power_daily = await m.get_power_daily()
-            weather_daily = await m.get_weather_daily()
+            power_hourly = await m.get_power_hourly(-3)
+            weather_hourly = await m.get_weather_hourly(-3)
+            power_daily = await m.get_power_daily(-3)
+            weather_daily = await m.get_weather_daily(-3)
     except gwp_opower.MeterError:
         log.exception('Could not connect to GWP Meter')
     else:
