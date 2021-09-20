@@ -13,7 +13,7 @@ class NutError(RuntimeError):
     pass
 
 
-class NutClient(object):
+class NutClient:
     """Class for querying a NUT (Network UPS Tools) server.
 
     """

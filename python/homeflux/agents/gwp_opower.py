@@ -13,7 +13,7 @@ class MeterError(Exception):
     pass
 
 
-class Meter(object):
+class Meter:
     """Class for interacting with Glendale Water and Power gwp.opower.com JSON API.
 
     """

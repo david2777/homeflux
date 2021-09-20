@@ -1,7 +1,7 @@
 import time
 
 
-class Timer(object):
+class Timer:
     """Simple Timer"""
     def __init__(self):
         self.start = time.perf_counter()
