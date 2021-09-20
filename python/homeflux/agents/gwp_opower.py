@@ -4,6 +4,7 @@ import datetime
 from typing import Union, Optional, List
 
 import requests
+import requests_mock
 
 from homeflux import urls, environment, log
 from homeflux.data.data_types import PowerRecord, ClimateRecord
@@ -47,11 +48,17 @@ class Meter:
         """
         log.info('Logging into GWP OPower')
         self.session = requests.session()
+        login_url = urls.LOGIN
+        if environment.TEST:
+            login_url = login_url.replace('https://', 'mock://')
+            adapter = requests_mock.Adapter()
+            self.session.mount('mock://', adapter)
+            adapter.register_uri('POST', login_url, text='data')
         payload = "{\"username\":\"%s\",\"password\":\"%s\"}" % (environment.GWP_USER, environment.GWP_PASSWORD)
-        log.debug('POSTing to %s', urls.LOGIN)
-        r = self.session.post(urls.LOGIN, payload)
+        log.debug('POSTing to %s', login_url)
+        r = self.session.post(login_url, payload)
         log.debug('Response Code: %s', r.status_code)
-        if r.status_code != 204:
+        if r.status_code not in [200, 204]:
             raise MeterError('Failed to login, response code: {}'.format(r.status_code))
 
     async def logout(self):
