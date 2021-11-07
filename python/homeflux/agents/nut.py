@@ -3,7 +3,6 @@ import datetime
 from typing import Union, Optional
 
 import nut2
-from nut2 import PyNUTClient
 
 from homeflux import environment, log
 from homeflux.data.data_types import PowerRecord
@@ -21,7 +20,7 @@ class NutClient:
     ip_address: str
     timescale: str
     port: int
-    nut_client: Union[PyNUTClient, None] = None
+    nut_client: Union[nut2.PyNUTClient, None] = None
 
     def __init__(self, host_name: str, ip_address: str, timescale: str, port: int = None):
         """Initialize Client Object (without connecting).
@@ -32,6 +31,8 @@ class NutClient:
             timescale (str): Timescale, used to determine which bucket the data goes into.
             port (Optional[int]): Optional explicit port, default from environment.
         """
+        if timescale not in ['minute', 'hour', 'day', 'week']:
+            raise ValueError('Invalid timescale "{}"'.format(timescale))
         self.host_name = host_name
         self.ip_address = ip_address
         self.timescale = timescale
@@ -52,8 +53,8 @@ class NutClient:
         """
         try:
             log.info('Connecting to NUT Server %s@%s', self.ip_address, self.port)
-            self.nut_client = PyNUTClient(host=self.ip_address, port=self.port, login=environment.NUT_USERNAME,
-                                          password=environment.NUT_PASSWORD, debug=False)
+            self.nut_client = nut2.PyNUTClient(host=self.ip_address, port=self.port, login=environment.NUT_USERNAME,
+                                               password=environment.NUT_PASSWORD, debug=False)
         except nut2.PyNUTError:
             raise NutError(f'Failed to connect to {self.ip_address}')
 
@@ -71,10 +72,10 @@ class NutClient:
         Returns:
             PowerRecord: PowerRecord object for this reading.
         """
-        dc = False
+        disconnect = False
         if self.nut_client is None:
             await self.connect()
-            dc = True
+            disconnect = True
 
         raw_data = self.nut_client.list_vars(environment.NUT_UPS_NAME)
 
@@ -93,9 +94,9 @@ class NutClient:
             log.debug(repr(r))
         except KeyError:
             log.exception('NutError')
-            raise(NutError('Failed to get key from NUT data'))
+            raise NutError('Failed to get key from NUT data')
 
-        if dc:
+        if disconnect:
             await self.disconnect()
 
         return r
