@@ -3,7 +3,7 @@ from(bucket: "home-minute")
   |> filter(fn: (r) => r["_measurement"] == "power")
   |> filter(fn: (r) => r["source"] == "homeflux.nut")
   |> aggregateWindow(every: 1h, fn: mean)
-  |> to(bucket: "home-day")
+  |> to(bucket: "home-hour")
 
 from(bucket: "home-hour")
   |> range(start: -2d)
