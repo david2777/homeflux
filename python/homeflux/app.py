@@ -71,6 +71,11 @@ async def gwp_main():
         db.write(values=weather_daily)
 
 
+def seed():
+    from homeflux.utils.db_utils import seed_opower_historical
+    asyncio.run(seed_opower_historical())
+
+
 def run_once():
     asyncio.run(gwp_main.func())
     asyncio.run(nut_main.func())
