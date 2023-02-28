@@ -9,7 +9,7 @@ from homeflux.data import database as db
 from homeflux.agents import gwp_opower, nut
 
 
-@aiocron.crontab('*/1 * * * *')  # Run every minute
+# @aiocron.crontab('*/1 * * * *')  # Run every minute
 async def nut_main():
     """Main NUT gather loop, designed to run forever on an interval.
 
@@ -54,10 +54,10 @@ async def gwp_main():
     m = gwp_opower.Meter(environment.GWP_USER, environment.GWP_PASSWORD, environment.GWP_UUID)
     try:
         async with m:
-            power_hourly = await m.get_power_hourly(-3)
-            weather_hourly = await m.get_weather_hourly(-3)
-            power_daily = await m.get_power_daily(-3)
-            weather_daily = await m.get_weather_daily(-3)
+            power_hourly = await m.get_power_hourly(-5)
+            weather_hourly = await m.get_weather_hourly(-5)
+            power_daily = await m.get_power_daily(-5)
+            weather_daily = await m.get_weather_daily(-5)
     except gwp_opower.MeterError:
         log.exception('Could not connect to GWP Meter')
     else:
@@ -78,7 +78,7 @@ def seed():
 
 def run_once():
     asyncio.run(gwp_main.func())
-    asyncio.run(nut_main.func())
+    # asyncio.run(nut_main.func())
 
 
 def main():
